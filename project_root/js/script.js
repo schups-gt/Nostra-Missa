@@ -76,22 +76,22 @@ if (expandButton) {
 // Evento de rolagem para abrir/fechar o painel
 window.addEventListener('wheel', (e) => {
   if (!bottomPanel) return;
-  
-  // Se o usuário estiver rolando dentro do painel, não faça nada
-  if (bottomPanel.contains(e.target)) return;
-  
+
+  // Ignora scroll dentro do painel
   const atTop = window.scrollY <= 30;
-  
-  // Rolando para baixo e o painel está fechado -> abre o painel
+
+  // Scroll para baixo e painel fechado → abre
   if (e.deltaY > 0 && !isPanelOpen) {
+    e.preventDefault(); // <- impede o scroll da página
     togglePanel();
   }
-  
-  // Rolando para cima e o painel está aberto e estamos no topo da página -> fecha o painel
+
+  // Scroll para cima, painel aberto e estamos no topo da página → fecha
   if (e.deltaY < 0 && isPanelOpen && atTop) {
+    e.preventDefault(); // <- impede o "glitch" de subir a tela
     togglePanel();
   }
-});
+}, { passive: false }); // <- importante para o preventDefault funcionar
 
 // Função para alternar o modo escuro
 function toggleDarkMode() {

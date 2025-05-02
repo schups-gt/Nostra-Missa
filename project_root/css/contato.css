@@ -154,6 +154,8 @@ caixa de texto
 }
 
 body{
+  zoom: 80%;
+  transform-origin: top left;
   width: 150%;
   height: 100vh;
   background-position: center;
